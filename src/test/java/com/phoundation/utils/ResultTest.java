@@ -1,6 +1,11 @@
 package com.phoundation.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.phoundation.utils.Result.Success;
 import org.junit.jupiter.api.DisplayName;
@@ -152,5 +157,27 @@ class ResultTest {
       assertThrows(Exception.class, error::onErrorThrow);
     }
 
+  }
+
+  @Nested
+  @DisplayName("From static method")
+  class From {
+    @Test
+    @DisplayName("Operation that returns value gives a Result.Success with that value")
+    void success() {
+      var result = Result.from(() -> "SUCCESS VALUE");
+
+      assertEquals("SUCCESS VALUE", result.get());
+      assertInstanceOf(Result.Success.class, result);
+    }
+
+    @Test
+    @DisplayName("Operation that throws exception returns Result.Error wrapping Exception")
+    void error() {
+      var result = Result.from(() -> { throw new RuntimeException("ERROR"); });
+
+      assertInstanceOf(Result.Error.class, result);
+      assertThrows(RuntimeException.class, result::onErrorThrow);
+    }
   }
 }
