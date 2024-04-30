@@ -1,6 +1,6 @@
 # Result
 
-A micro-library that provides and implementation of a 'Result' object used 
+A micro-library that provides an implementation of a 'Result' object used 
 to wrap return values from methods indicating SUCCESS, FAILURE and ERROR conditions.
 
 ## Usage
@@ -16,7 +16,7 @@ public Result<String> doSomething() {
             result = Result.fail();
         }
     } catch (Exception e) {
-        result = Result.errpr(e);
+        result = Result.error(e);
     }
     
     return result;
