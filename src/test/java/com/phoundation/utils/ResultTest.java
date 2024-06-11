@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.phoundation.utils.Result.Error;
 import com.phoundation.utils.Result.Success;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -45,6 +46,15 @@ class ResultTest {
 
       assertEquals("SUCCESS", result.get());
       assertEquals(success, returned);
+    }
+
+    @Test
+    @DisplayName("When onSuccess function throws return Error")
+    void onSuccessThrows() {
+      var returned = success.onSuccess(val -> {throw new RuntimeException(val);});
+
+      assertInstanceOf(Error.class, returned);
+      assertThrows(RuntimeException.class, returned::onErrorThrow);
     }
 
     @Test
@@ -97,6 +107,15 @@ class ResultTest {
 
       assertEquals("FAIL-SUCCESS", result.get());
       assertInstanceOf(Success.class, returned);
+    }
+
+    @Test
+    @DisplayName("When onFail function throws return Error")
+    void onFailThrows() {
+      var returned = fail.onFail(() -> {throw new RuntimeException("TEST");});
+
+      assertInstanceOf(Error.class, returned);
+      assertThrows(RuntimeException.class, returned::onErrorThrow);
     }
 
     @Test
