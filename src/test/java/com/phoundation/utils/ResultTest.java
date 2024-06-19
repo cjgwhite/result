@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.phoundation.utils.Result.Error;
+import com.phoundation.utils.Result.ExceptionResult;
 import com.phoundation.utils.Result.Success;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -142,7 +143,7 @@ class ResultTest {
     @Test
     @DisplayName("Get throws exception")
     void get() {
-      assertThrows(Exception.class, error::get);
+      assertThrows(ExceptionResult.class, error::get);
     }
 
     @Test

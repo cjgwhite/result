@@ -38,7 +38,7 @@ public sealed interface Result<L> permits Result.Success, Result.Error, Result.F
    * @param <L> the type of the return value
    * @return a Result.Error
    */
-  static <L> Result<L> error(Exception error) {
+  static <L, E extends Exception> Result<L> error(E error) {
     return new Error<>(error);
   }
 
@@ -178,7 +178,7 @@ public sealed interface Result<L> permits Result.Success, Result.Error, Result.F
 
     @Override
     public L get() {
-      throw new RuntimeException(error);
+      throw new ExceptionResult(error);
     }
 
     @Override
@@ -190,6 +190,17 @@ public sealed interface Result<L> permits Result.Success, Result.Error, Result.F
     @Override
     public Result<L> onErrorThrow() throws E {
       throw error;
+    }
+  }
+
+  /**
+   * Wraps the Throwable into a RuntimeException.
+   * Used when Result.Error.get() is executed, wraps
+   * the original Exception.
+   */
+  final class ExceptionResult extends RuntimeException {
+    ExceptionResult(Throwable cause) {
+      super(cause);
     }
   }
 }
