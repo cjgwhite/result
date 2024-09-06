@@ -1,6 +1,7 @@
 package com.phoundation.utils;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -85,6 +86,20 @@ public sealed interface Result<L> permits Result.Success, Result.Error, Result.F
   }
 
   /**
+   * Execute the given 'operation' with the value wrapper by
+   * the Result if the result is a Result.Success
+   *
+   * <p>Will return a new Result wrapping the result of the operation.
+   *
+   * @param operation function to perform on the value of the Result
+   * @param <R> The return type of the operation, type of the returned Result.
+   * @return the result of the operation wrapped in a Result
+   */
+  default <R> Result<?> then(Function<L, R> operation) {
+    return this;
+  }
+
+  /**
    * Executes the given 'operation' if the result is a Result.Failure
    *
    * <p>If is a Result.Failure Will return  Result wrapping the result of
@@ -142,6 +157,11 @@ public sealed interface Result<L> permits Result.Success, Result.Error, Result.F
         return error(e);
       }
       return this;
+    }
+
+    @Override
+    public <R> Result<R> then(Function<L, R> operation) {
+      return from(() -> operation.apply(get()));
     }
   }
 

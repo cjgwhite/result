@@ -59,6 +59,22 @@ class ResultTest {
     }
 
     @Test
+    @DisplayName("then function is executed")
+    void then() {
+      var returned = success.then(value -> value + " TRANSFORMED");
+      assertEquals("SUCCESS TRANSFORMED", returned.get());
+    }
+
+    @Test
+    @DisplayName("then function throws return Error")
+    void thenThrows() {
+      var returned = success.then(value -> {throw new RuntimeException(value);});
+
+      assertInstanceOf(Error.class, returned);
+      assertThrows(RuntimeException.class, returned::onErrorThrow);
+    }
+
+    @Test
     @DisplayName("On Fail operation not executed")
     void onFail() {
       var returned = success.onFail(() -> fail("should not have been executed"));
@@ -95,6 +111,13 @@ class ResultTest {
     @DisplayName("onSuccess operation does not execute")
     void onSuccess() {
       var returned = fail.onSuccess(value -> fail("should not have been executed"));
+      assertEquals(fail, returned);
+    }
+
+    @Test
+    @DisplayName("onSuccess operation does not execute")
+    void then() {
+      var returned = fail.then(value -> fail("should not have been executed"));
       assertEquals(fail, returned);
     }
 
@@ -150,6 +173,13 @@ class ResultTest {
     @DisplayName("onSuccess operation does not execute")
     void onSuccess() {
       var returned = error.onSuccess(val -> fail("should not have executed"));
+      assertEquals(error, returned);
+    }
+
+    @Test
+    @DisplayName("onSuccess operation does not execute")
+    void then() {
+      var returned = error.then(val -> fail("should not have executed"));
       assertEquals(error, returned);
     }
 
