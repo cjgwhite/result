@@ -1,4 +1,4 @@
-package com.phoundation.utils;
+package uk.cjgwhite.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

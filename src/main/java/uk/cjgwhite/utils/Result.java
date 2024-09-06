@@ -1,4 +1,4 @@
-package com.phoundation.utils;
+package uk.cjgwhite.utils;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

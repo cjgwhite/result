@@ -40,14 +40,14 @@ public void execute() {
 Intended for use as a return value from methods
 
 ~~~java
-import com.phoundation.utils.Either;
+import uk.cjgwhite.utils.Either;
 
 public Either<String, Integer> convert(String value) {
-  try {
-    return Either.right(Integer.parseInt(value));
-  } catch (NumberFormatException ex) {
-    return Either.Left(value);
-  }
+    try {
+        return Either.right(Integer.parseInt(value));
+    } catch (NumberFormatException ex) {
+        return Either.Left(value);
+    }
 }
 ~~~
 ~~~java

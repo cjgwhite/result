@@ -1,7 +1,5 @@
-package com.phoundation.utils;
+package uk.cjgwhite.utils;
 
-import com.phoundation.utils.Either.Left;
-import com.phoundation.utils.Either.Right;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -11,7 +9,7 @@ import java.util.function.Function;
  * @param <L> the type of the 'left' value
  * @param <R> the type of the 'right' value
  */
-public sealed interface Either<L, R> permits Left, Right {
+public sealed interface Either<L, R> permits Either.Left, Either.Right {
 
   /**
    * Create an Either where the 'left' value is returned.

@@ -1,4 +1,4 @@
-package com.phoundation.utils;
+package uk.cjgwhite.utils;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.phoundation.utils.Result.Error;
-import com.phoundation.utils.Result.ExceptionResult;
-import com.phoundation.utils.Result.Success;
+import uk.cjgwhite.utils.Result.Error;
+import uk.cjgwhite.utils.Result.ExceptionResult;
+import uk.cjgwhite.utils.Result.Success;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
